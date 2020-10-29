@@ -1,1 +1,1 @@
-export { default, FontSizes, FontColors } from './Text';
+export { default, TextSizes, TextColors } from './Text';

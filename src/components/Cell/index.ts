@@ -1,1 +1,3 @@
-export { default } from './Cell';
+export {default, CellTypes} from './Cell';
+export type { CellData } from './Cell';
+

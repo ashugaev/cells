@@ -1,10 +1,19 @@
 import React from 'react';
+import Cell, {CellData} from "../Cell";
+import styles from './CellsList.module.sass';
 
-function CellsList() {
+interface CellsListProps {
+    cells: CellData[];
+}
+
+const CellsList: React.FC<CellsListProps> = ({cells}) => {
+    console.log(styles)
     return (
-        <div>
-            kek
-        </div>
+        <>
+            {cells.map(data => (
+                    <Cell {...data} className={styles.cell}/>
+            ))}
+        </>
     );
 }
 

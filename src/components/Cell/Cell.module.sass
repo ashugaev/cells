@@ -1,0 +1,39 @@
+$types: "alive" "💥" linear-gradient(180deg, #FFB800 0%, #FFF7B0 100%), "dead" "💀" linear-gradient(180deg, #0D658A 0%, #B0FFB4 100%), "life" "🐣" linear-gradient(180deg, #AD00FF 0%, #FFB0E9 100%)
+
+$icon-size: 40px
+
+@each $type, $emoji, $bg in $types
+  .icon_#{$type}
+      background: $bg
+      position: relative
+      display: flex
+      align-items: center
+      justify-content: center
+
+      &:before
+        content: $emoji
+        font-size: 20px
+
+.cell
+  padding: 16px
+  background: white
+  border-radius: 8px
+  display: flex
+
+.icon
+  position: relative
+  height: $icon-size
+  width: $icon-size
+  border-radius: 50%
+  margin-right: 16px
+
+.textContent
+  display: flex
+  flex-grow: 1
+  flex-direction: column
+
+.title
+  position: relative
+
+.description
+  position: relative
