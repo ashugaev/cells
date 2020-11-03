@@ -10,6 +10,7 @@ export enum CellTypes {
 }
 
 export interface CellData {
+    id: string;
     type: CellTypes;
     title: string;
     description: string;
@@ -28,7 +29,7 @@ const Cell:FunctionComponent<CellProps> = ({type, title, description, className}
            <div className={iconClassName} />
            <div className={styles.textContent}>
                <Text text={title} className={styles.title} size={TextSizes.l} bold/>
-               <Text text={description} className={styles.description} size={TextSizes.s}/>
+               <Text text={description} className={styles.description}/>
            </div>
        </div>
     );
