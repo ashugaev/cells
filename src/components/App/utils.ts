@@ -1,21 +1,21 @@
 import {CellData, CellTypes} from "../Cell";
 
-export const getRandomId = () => `f${(~~(Math.random() * 1e8)).toString(16)}`;
+export const getRandomId = (): string => `f${(~~(Math.random() * 1e8)).toString(16)}`;
 
 export const cellsByTypes = {
-    [CellTypes.alive]: () => ({
+    [CellTypes.alive]: (): CellData => ({
         id: getRandomId(),
         type: CellTypes.alive,
         title: 'Живая',
         description: 'И шевелится',
     }),
-    [CellTypes.dead]: () => ({
+    [CellTypes.dead]: (): CellData => ({
         id: getRandomId(),
         type: CellTypes.dead,
         title: 'Мёртвая',
         description: 'или прикидывается',
     }),
-    [CellTypes.life]: () => ({
+    [CellTypes.life]: (): CellData => ({
         id: getRandomId(),
         type: CellTypes.life,
         title: 'Жизнь',
@@ -51,7 +51,7 @@ export const validateCells = (arrWithNewCell: CellData[]): CellData[] => {
     };
 
     for (let i = 0; i < arrWithNewCell.length; i++) {
-        const cell = arrWithNewCell[i];
+        const cell: CellData = arrWithNewCell[i];
 
         if (sameCellsCounter.type !== cell.type) {
             sameCellsCounterPrev = {...sameCellsCounter};
@@ -65,7 +65,7 @@ export const validateCells = (arrWithNewCell: CellData[]): CellData[] => {
         if (sameCellsCounter.type === CellTypes.alive && sameCellsCounter.count === 2) {
             arrWithNewCell = arrWithNewCell.slice(0, -2);
 
-            const isCellBornAndDied = sameCellsCounterPrev.type === CellTypes.dead && sameCellsCounterPrev.count >= 3;
+            const isCellBornAndDied: boolean = sameCellsCounterPrev.type === CellTypes.dead && sameCellsCounterPrev.count >= 3;
 
             arrWithNewCell.push(isCellBornAndDied ? cellsByTypes[CellTypes.dead]() : cellsByTypes[CellTypes.life]());
 

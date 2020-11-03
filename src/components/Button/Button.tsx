@@ -10,11 +10,11 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({text, className, onClick}) => {
-    const buttonClassName = classnames(styles.button, className)
+    const buttonClassName: string = classnames(styles.button, className)
 
     return (
         <button className={buttonClassName} onClick={onClick}>
-            <Text text={text} color={TextColors.white} />
+            <Text text={text} color={TextColors.white}/>
         </button>
     );
 }

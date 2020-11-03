@@ -1,1 +1,1 @@
-export { default } from './CellsList';
+export {default} from './CellsList';

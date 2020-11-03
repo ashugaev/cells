@@ -22,10 +22,10 @@ interface TextProps {
 }
 
 const Text: React.FC<TextProps> = ({
-    className, text, color, size, bold, transparent, children
+   className, text, color, size, bold, transparent, children
 }) => {
 
-    const textClassName = classnames(
+    const textClassName: string = classnames(
         className,
         {
             [styles[`size_${size}`]]: size,

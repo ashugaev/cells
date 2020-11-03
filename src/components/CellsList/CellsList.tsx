@@ -10,23 +10,23 @@ interface CellsListProps {
 }
 
 const CellsList: React.FC<CellsListProps> = ({cells, className}) => {
-    const cellsListClassName = classnames(className, styles.cellsList);
+    const cellsListClassName: string = classnames(className, styles.cellsList);
 
-    if(!cells.length) {
+    if (!cells.length) {
         return (
             <Text
                 className={styles.placeholder}
                 text='Для начала процесса зарождения нажмите "СОТВОРИТЬ"'
                 transparent
                 color={TextColors.white}
-             />
+            />
         )
     }
     return (
         <div className={cellsListClassName}>
             {cells.map((data) => (
-                    <Cell key={data.id} {...data} className={styles.cell}/>
-                    ))}
+                <Cell key={data.id} {...data} className={styles.cell}/>
+            ))}
         </div>
     );
 }
