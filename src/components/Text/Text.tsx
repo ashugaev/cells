@@ -1,14 +1,13 @@
-import React, {FunctionComponent} from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import styles from './Text.module.sass';
 
-export enum FontSizes {
+export enum TextSizes {
     s = 's',
-    m = 'm',
     l = 'l'
 }
 
-export enum FontColors {
+export enum TextColors {
     black = 'black',
     white = 'white'
 }
@@ -16,34 +15,36 @@ export enum FontColors {
 interface TextProps {
     text: string;
     className?: string;
-    color?: FontColors;
-    size?: FontSizes;
+    color?: TextColors;
+    size?: TextSizes;
     bold?: boolean,
+    transparent?: boolean
 }
 
-const Text: FunctionComponent<TextProps> = ({
-    className, text, color, size, bold,
+const Text: React.FC<TextProps> = ({
+    className, text, color, size, bold, transparent, children
 }) => {
 
     const textClassName = classnames(
         className,
         {
-            [styles[`size-${size}`]]: size,
-            [styles[`color-${color}`]]: color,
+            [styles[`size_${size}`]]: size,
+            [styles[`color_${color}`]]: color,
             [styles.bold]: bold,
+            [styles.transparent]: transparent,
         });
 
     return (
         <span
             className={textClassName}
         >
-            {text}
+            {text || children}
     </span>
     );
 };
 
 Text.defaultProps = {
-    size: FontSizes.m,
+    size: TextSizes.s,
 };
 
 export default Text;
