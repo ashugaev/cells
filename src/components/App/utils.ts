@@ -1,13 +1,13 @@
 import {CellData, CellTypes} from "../Cell";
 
-export const getRandomId = () => `f${(~~(Math.random()*1e8)).toString(16)}`;
+export const getRandomId = () => `f${(~~(Math.random() * 1e8)).toString(16)}`;
 
 export const cellsByTypes = {
     [CellTypes.alive]: () => ({
-            id: getRandomId(),
-            type: CellTypes.alive,
-            title: 'Живая',
-            description: 'И шевелится',
+        id: getRandomId(),
+        type: CellTypes.alive,
+        title: 'Живая',
+        description: 'И шевелится',
     }),
     [CellTypes.dead]: () => ({
         id: getRandomId(),
@@ -23,34 +23,38 @@ export const cellsByTypes = {
     })
 }
 
-export const killCellIfLife = (arr: CellData[], index: number): void => {
-    if(arr[index] && arr[index].type === CellTypes.life) {
-        arr = arr.slice(0, index - 1).concat(arr.slice(index));
+export const killCellIfLife = (arr: CellData[], index: number, increment?: boolean): CellData[] => {
+    if (arr[index] && arr[index].type === CellTypes.life) {
+        arr = arr.slice(0, index).concat(cellsByTypes[CellTypes.dead](), arr.slice(index + 1));
         // Если рядом есть еще одна жизнь
-        killCellIfLife(arr, index - 1);
+        return killCellIfLife(arr, index + (increment ? 1 : -1));
+    } else {
+        return arr;
     }
 };
+
+interface CellCounterValues {
+    type: CellTypes | null;
+    count: number;
+}
 
 export const validateCells = (arrWithNewCell: CellData[]): CellData[] => {
     if (arrWithNewCell.length < 2) return arrWithNewCell;
 
-    const sameCellsCounter:{type: CellTypes | null, count: number} = {
+    const sameCellsCounter: CellCounterValues = {
         type: null,
         count: 0,
     };
 
-    const validatedCellsArr = arrWithNewCell.reduce((acc: CellData[], cell: CellData) => {
-        acc.push(cell);
+    let sameCellsCounterPrev: CellCounterValues = {
+        ...sameCellsCounter
+    };
 
-        if(sameCellsCounter.type !== cell.type) {
-            if(sameCellsCounter.type === CellTypes.alive && sameCellsCounter.count === 2) {
-                acc = acc.slice(0, -2);
-                acc.push(cellsByTypes[CellTypes.life]());
-            }
+    for (let i = 0; i < arrWithNewCell.length; i++) {
+        const cell = arrWithNewCell[i];
 
-            if(sameCellsCounter.type === CellTypes.dead && sameCellsCounter.count === 3) {
-                killCellIfLife(acc, acc.length - 4)
-            }
+        if (sameCellsCounter.type !== cell.type) {
+            sameCellsCounterPrev = {...sameCellsCounter};
 
             sameCellsCounter.type = cell.type;
             sameCellsCounter.count = 1;
@@ -58,9 +62,22 @@ export const validateCells = (arrWithNewCell: CellData[]): CellData[] => {
             sameCellsCounter.count++;
         }
 
-        return acc;
-    }, [])
+        if (sameCellsCounter.type === CellTypes.alive && sameCellsCounter.count === 2) {
+            arrWithNewCell = arrWithNewCell.slice(0, -2);
 
-    return validatedCellsArr;
+            const isCellBornAndDied = sameCellsCounterPrev.type === CellTypes.dead && sameCellsCounterPrev.count >= 3;
+
+            arrWithNewCell.push(isCellBornAndDied ? cellsByTypes[CellTypes.dead]() : cellsByTypes[CellTypes.life]());
+
+            i--;
+        }
+
+        if (sameCellsCounter.type === CellTypes.dead && sameCellsCounter.count >= 3) {
+            arrWithNewCell = killCellIfLife(arrWithNewCell, i + 1, true);
+            arrWithNewCell = killCellIfLife(arrWithNewCell, i - sameCellsCounter.count);
+        }
+    }
+
+    return arrWithNewCell;
 }
 

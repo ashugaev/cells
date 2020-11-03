@@ -12,9 +12,9 @@ export const useCells = ():[cells: CellData[], addRandom: () => void] => {
 
         const arrWithNewCell = [...cells, newCell];
 
-        const validatedCells = validateCells(arrWithNewCell);
+        validateCells(arrWithNewCell);
 
-        setCells(validatedCells);
+        setCells(arrWithNewCell);
     }
 
     return [cells, addRandomCell]
