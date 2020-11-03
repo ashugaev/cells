@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Button.module.sass';
-import Text, {TextColors, TextSizes} from "../Text";
+import Text, {TextColors} from "../Text";
 import classnames from 'classnames';
 
 interface ButtonProps {

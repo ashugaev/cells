@@ -20,7 +20,7 @@ interface CellProps extends CellData {
     className?: string;
 }
 
-const Cell:FunctionComponent<CellProps> = ({type, title, description, className}) => {
+const Cell:React.FC<CellProps> = ({type, title, description, className}) => {
     const iconClassName = classnames(styles.icon, styles[`icon_${CellTypes[type]}`]);
     const cellClassName = classnames(styles.cell, className);
 
