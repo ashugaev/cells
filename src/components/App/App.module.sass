@@ -1,0 +1,49 @@
+@import "../../assets/styles/constants"
+
+$max-content-width: 600px
+
+.app
+  height: 100%
+  width: 100%
+  max-width:
+  background: $mainBgGradient
+  display: flex
+  flex-direction: column
+  flex-grow: 1
+  align-items: center
+  overflow: scroll
+
+.content
+  padding: 0 16px
+  flex-grow: 1
+  display: flex
+  flex-direction: column
+  width: 100%
+  max-width: $max-content-width
+  box-sizing: border-box
+  position: relative
+
+.cellsList
+  flex-grow: 1
+  margin-bottom: $button-bottom-gap + $button-height + 22px
+
+.title
+  margin: 16px auto 22px
+  display: block
+  //position: fixed
+  //top: 0
+  //left: 0
+  text-align: center
+  width: 100%
+  //max-width: $max-content-width
+  //left: 50%
+  //transform: translateX(-50%)
+
+.button
+  position: fixed
+  bottom: $button-bottom-gap
+  left: 0
+  width: 100%
+  max-width: $max-content-width
+  left: 50%
+  transform: translateX(-50%)
