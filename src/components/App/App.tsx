@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import styles from "./App.module.sass";
 import Button from "../Button";
 import Text, {TextColors, TextSizes} from "../Text";
@@ -6,8 +6,8 @@ import CellsList from "../CellsList";
 import {useCells} from "./hooks";
 
 const App: React.FC = () => {
-    const contentRef = React.useRef<HTMLDivElement>(null);
-    const appRef = React.useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const appRef = useRef<HTMLDivElement>(null);
 
     const [cells, addCell] = useCells();
 
